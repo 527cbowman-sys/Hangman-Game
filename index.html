@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Hangman Game</title>
+        <title>Flower Hangman</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -24,6 +24,8 @@
         <div class="container">
             <h1 class="text-center mt-4 mb-4 title">Hangman Game</h1>
 
+            <img src="flower.png" class="flower">
+
             <div id="difficultySelection" class="text-center difficulty">
                 <h3 class="selectd">Select Difficulty</h3>
                 <button class="btn difficulty-btn" onclick="startGame('easy')">Easy</button>
@@ -31,7 +33,23 @@
                 <button class="btn difficulty-btn" onclick="startGame('hard')">Hard</button>
             </div>
 
+            <div id="difficultyBox" class="d-none"></div> 
 
+
+            <div id="gameDisplay" class="d-none">
+                <h2 id="wordDisplay" class="mb-3 wordDisplay">_ _ _ _ _</h2>
+
+                <div>
+                    <input id="letterInput" maxlength="1" class="form-control" placeholder="Enter a Letter">
+                    <button id="guessButton" class="btn" onclick="guessLetter()">Guess</button>
+                </div>
+
+                <p id="wrongLetters">Wrong Guesses: 0</p>
+
+                <div>
+                    <button id="restart" class="btn restart" onclick="restartGame()">Restart Game</button>
+                </div>
+            </div>
         </div>
 
 
