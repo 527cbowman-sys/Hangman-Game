@@ -4,8 +4,10 @@ let guessedLetters = [];
 let displayedWord = '';
 let wrongGuesses = 0;
 let startDisplay = '';
-let maxGuesses = 6;
+let maxGuesses = 5;
 let display = "";
+let gameActive = false;
+let selectedWord = '';
 
 
 
@@ -20,9 +22,9 @@ function startGame(level) {
   document.getElementById('gameDisplay').classList.add('d-block');
   updateDisplay();
   updateDifficultyDisplay(level)
+  gameActive = true;
 
 }
-
 
 
 
@@ -53,17 +55,54 @@ function updateDifficultyDisplay(level) {
 }
 
 
+
+function updateFlowerImage() {
+  const flower = document.getElementById('flower');
+  let imgNumber = Math.min(5, Math.max(0, wrongGuesses));
+  imgNumber = Math.round((wrongGuesses / maxGuesses) * 5);
+  flower.src = `flower${5 - imgNumber}.png`;
+}
+
 function guessLetter() {
-  let inputField = document.getElementById('letterInput');
-  let guessedLetter = inputField.value.toUpperCase();
+  if (!gameActive) return;
+  const inputField = document.getElementById('letterInput');
+  const guessedLetter = inputField.value.toUpperCase();
+  inputField.value = '';
 
   if (!isCharLetter(guessedLetter)) {
     alert('Please enter a letter A-Z');
-    inputField.value = '';
     return;
   }
 
-  
+  if (guessedLetters.includes(guessedLetter)) {
+    alert('You already guessed that letter!');
+    return;
+  }
+
+  guessedLetters.push(guessedLetter);
+
+  if (!selectedWord.includes(guessedLetter)) {
+    wrongGuesses++;
+  }
+
+  updateDisplay();
+  document.getElementById('wrongLetters').textContent = `Wrong Guesses: ${wrongGuesses}`;
+  updateFlowerImage();
+}
+
+function updateDisplay() {
+  display = '';
+
+  for (let i = 0; i < selectedWord.length; i++) {
+    let letter = selectedWord.charAt(i);
+    if (guessedLetters.includes(letter)) {
+      display += letter + " ";
+    } else {
+      display += "_ ";
+    }
+  }
+
+  document.getElementById('wordDisplay').textContent = display;
 }
 
 
@@ -71,17 +110,3 @@ function isCharLetter(char) {
     return /^[a-z]$/i.test(char);
   }
   
-function updateDisplay() {
-
-  for (let i = 0; i < selectedWord.length; i++) {
-
-    let letter = selectedWord.charAt(i);
-
-    if (guessedLetters.includes(letter)) {
-      display += letter + " ";
-    } else {
-      display += "_ ";
-    }
-
-  }
-}
