@@ -23,8 +23,8 @@
     <body>
         <div class="container">
             <h1 class="text-center mt-4 mb-4 title">Hangman Game</h1>
-
-            <img src="flower5.png" class="flower">
+            <p id="message" class="message"></p>
+            <img id="flower" src="flower5.png" class="flower">
 
             <div id="difficultySelection" class="text-center difficulty">
                 <h3 class="selectd">Select Difficulty</h3>
@@ -39,12 +39,14 @@
             <div id="gameDisplay" class="d-none text-center">
                 <h2 id="wordDisplay" class="mb-3 wordDisplay">_ _ _ _ _</h2>
 
+                
+
                 <div>
                     <input id="letterInput" maxlength="1" class="form-control enterletter" placeholder="Enter a Letter">
                     <button id="guessButton" class="btn guess" onclick="guessLetter()">Guess</button>
                 </div>
 
-                <p id="wrongLetters">Wrong Guesses: 0</p>
+                <p id="wrongLetters" class="wrongGuesses">Wrong Guesses: 0</p>
 
                 <div>
                     <button id="restart" class="btn restart" onclick="restartGame()">Restart Game</button>
