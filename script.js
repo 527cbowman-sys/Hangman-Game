@@ -1,3 +1,4 @@
+//all possible words to choose from
 const wordList = [
   "ROSE",
   "LILY",
@@ -13,6 +14,8 @@ const wordList = [
   "CHRYSANTHEMUM",
 ];
 
+//defining all varibles
+
 let guessedLetters = [];
 let displayedWord = "";
 let wrongGuesses = 0;
@@ -22,10 +25,12 @@ let display = "";
 let gameActive = false;
 let selectedWord = "";
 
+
+//when game starts this happens
 function startGame(level) {
   guessedLetters = [];
   wrongGuesses = 0;
-
+//randomly selects a word
   selectedWord = getRandomWord(level);
   console.log("Selected Word:", selectedWord);
   document.getElementById("difficultySelection").style.display = "none";
@@ -38,6 +43,7 @@ function startGame(level) {
   gameActive = true;
 }
 
+//if click easy, chooses word with 4 letters, medium 5 letters, hard more than 5 letters
 function getRandomWord(level) {
   let filteredWords = wordList.filter((word) => {
     if (level === "easy") return word.length === 4;
@@ -47,6 +53,7 @@ function getRandomWord(level) {
   return filteredWords[Math.floor(Math.random() * filteredWords.length)];
 }
 
+//based on what they choose the difficulty box changes to show the difficulty
 function updateDifficultyDisplay(level) {
   let difficultyBox = document.getElementById("difficultyBox");
   difficultyBox.classList.remove("easy", "medium", "hard");
@@ -63,6 +70,7 @@ function updateDifficultyDisplay(level) {
   }
 }
 
+//updates the flower image based on how many wrong guesses they have (looses petals)
 function updateFlowerImage() {
   let flower = document.getElementById("flower");
   let imgNumber = Math.min(5, Math.max(0, wrongGuesses));
@@ -70,6 +78,7 @@ function updateFlowerImage() {
   flower.src = `flower${5 - imgNumber}.png`;
 }
 
+//when they guess a letter, checks if its valid, if they already guessed it, and if its in the word
 function guessLetter() {
   if (!gameActive) return;
   const inputField = document.getElementById("letterInput");
@@ -77,12 +86,16 @@ function guessLetter() {
   inputField.value = "";
 
   if (!isCharLetter(guessedLetter)) {
-    alert("Please enter a letter A-Z");
-    return;
+    const message = document.getElementById("message");
+    message.textContent = "Please choose a letter A-Z";
+    return;  // Exit early to avoid processing invalid input
   }
 
+  const message = document.getElementById("message");
+  message.textContent = "";
+
   if (guessedLetters.includes(guessedLetter)) {
-    alert("You already guessed that letter!");
+    message.textContent = "You already guessed that letter!";
     return;
   }
 
@@ -93,12 +106,12 @@ function guessLetter() {
   }
 
   updateDisplay();
-  document.getElementById("wrongLetters").textContent =
-    `Wrong Guesses: ${wrongGuesses}`;
+  document.getElementById("wrongLetters").textContent = `Wrong Guesses: ${wrongGuesses}`;
   updateFlowerImage();
   checkWinLose();
 }
 
+//updates display of the word with guessed letters and underscores for unguessed letters
 function updateDisplay() {
   display = "";
 
@@ -114,10 +127,12 @@ function updateDisplay() {
   document.getElementById("wordDisplay").textContent = display;
 }
 
+//checks if input is a single letter
 function isCharLetter(char) {
   return /^[a-z]$/i.test(char);
 }
 
+//checks if won or lost based on if 5 wrong guesses or not
 function checkWinLose() {
   const message = document.getElementById("message");
   if (!display.includes("_")) {
@@ -129,6 +144,7 @@ function checkWinLose() {
   }
 }
 
+//when click restart button, resets everything and goes back to original page
 function restartGame() {
   guessedLetters = [];
   wrongGuesses = 0;
@@ -149,6 +165,7 @@ function restartGame() {
   document.getElementById("flower").src = "flower5.png";
 }
 
+//allows user to press enter to submit their guess instead of clicking the button
 document.getElementById("letterInput").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     guessLetter();

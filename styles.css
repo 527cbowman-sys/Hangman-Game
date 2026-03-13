@@ -1,13 +1,28 @@
 body {
     background-color: rgb(209, 134, 146);
+    cursor: url("cursor.webp"), auto;
+}
+:hover {
+    cursor: url("cursor.webp"), auto !important;
+}
+button:hover {
+    cursor: url("cursor.webp"), auto !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .title {
     font-family: "looking-flowers-caps", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1000%;
+    font-size: clamp(7.5rem, 15vw, 11rem);
     color: white;
+    margin-bottom: 0%;
 }
 
 .selectd {
@@ -15,7 +30,7 @@ body {
     font-family: "looking-flowers-caps", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 600%;
+    font-size: clamp(1.8rem, 6vw, 4rem);
 }
 
 .difficulty {
@@ -32,6 +47,7 @@ body {
     transition: all 0.5s ease 0s;
     border-radius: 30px;
     margin-right: 1%;
+    margin-bottom: 8%;
 }
 .difficulty-btn:hover {
     color: #6e5447;
@@ -47,7 +63,8 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 50%;
+    margin-top: 0%;
 }
 
 .restart {
@@ -62,7 +79,8 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
+    margin-top: 6%;
+    margin-bottom: 8%;
 }
 .restart:hover {
     color: #6e5447;
@@ -76,7 +94,7 @@ body {
 
 .wordDisplay {
     padding-bottom: 8%;
-    font-size: 800%;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     font-family: "corsairpe", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -139,7 +157,11 @@ body {
 }
 
 .wrongGuesses {
-
+    color: white;
+    font-size: 170%;
+    font-family: "corsairpe", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .message {
